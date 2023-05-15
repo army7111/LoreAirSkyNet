@@ -7,12 +7,12 @@ redIADS:addCommandCenter(commandCenter)
 redIADS:addSAMSitesByPrefix('REDSAM')
 redIADS:addEarlyWarningRadarsByPrefix('REDEW')
 redIADS:addRadioMenu()
-redIADS:setUpdateInterval(5)
+---redIADS:setUpdateInterval(5)
 
 -- Attiva sistema IADS Skynet
 redIADS:activate()
 
---- Debug 
+--- Debug ---
 
 local iadsDebug = redIADS:getDebugSettings()  
 
@@ -26,3 +26,5 @@ iadsDebug.warnings = true
 iadsDebug.radarWentLive = true
 iadsDebug.radarWentDark = true
 iadsDebug.harmDefence = true
+
+--- fine debug ---
