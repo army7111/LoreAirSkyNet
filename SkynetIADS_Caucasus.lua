@@ -7,7 +7,7 @@ redIADS:addCommandCenter(commandCenter)
 redIADS:addSAMSitesByPrefix('REDSAM')
 redIADS:addEarlyWarningRadarsByPrefix('REDEW')
 redIADS:addRadioMenu()
----redIADS:setUpdateInterval(5)
+redIADS:setUpdateInterval(5)
 
 -- Attiva sistema IADS Skynet
 redIADS:activate()
