@@ -8,6 +8,8 @@ redIADS:addSAMSitesByPrefix('REDSAM')
 redIADS:addEarlyWarningRadarsByPrefix('REDEW')
 redIADS:addRadioMenu()
 redIADS:setUpdateInterval(5)
+redIADS:setGoLiveRangeInPercent(100)
+redIADS:GO_LIVE_WHEN_IN_SEARCH_RANGE()
 
 -- Attiva sistema IADS Skynet
 redIADS:activate()
