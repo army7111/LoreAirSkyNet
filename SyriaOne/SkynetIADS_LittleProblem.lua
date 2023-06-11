@@ -34,6 +34,26 @@ RedIADS:getSAMSiteByGroupName('REDSAM-SA11CC'):addPointDefence(sa15PDCC3)
 -- Attiva sistema IADS Skynet
 RedIADS:activate()
 
+--- INIZIO MOOSE AI-A2A-DISPATCHER
+
+DetectionSetGroup = SET_GROUP:New()
+Detection = DETECTION_AREAS:New( DetectionSetGroup, 30000 )
+A2ADispatcher = AI_A2A_DISPATCHER:New( Detection )
+A2ADispatcher:SetEngageRadius() -- 100000 is the default value.
+A2ADispatcher:SetGciRadius() -- 200000 is the default value.
+
+REDBorderZone = ZONE_POLYGON:New( "RED-BORDER", GROUP:FindByName( "RED-BORDER" ) )
+A2ADispatcher:SetBorderZone( REDBorderZone )
+A2ADispatcher:SetSquadron( "Larnaca", AIRBASE.Syria.Larnaca , { "REDAICAP-Mig29" }, 2 )
+A2ADispatcher:SetSquadronGrouping( "Kutaisi", 2 )
+A2ADispatcher:SetSquadronGci( "Larnaca", 900, 1200 )
+A2ADispatcher:SetTacticalDisplay(true)
+A2ADispatcher:Start()
+
+--- FINE MOOSE AI-A2A-DISPATCHER
+
+RedIADS:addMooseSetGroup(DetectionSetGroup)
+
 --- Debug ---
 
 local iadsDebug = RedIADS:getDebugSettings()
