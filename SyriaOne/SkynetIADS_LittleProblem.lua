@@ -61,18 +61,18 @@ RedIADS:addMooseSetGroup(DetectionSetGroup)
 
 --- Debug ---
 
-local iadsDebug = RedIADS:getDebugSettings()
+--local iadsDebug = RedIADS:getDebugSettings()
 
-iadsDebug.IADSStatus = true
-iadsDebug.contacts = true
-iadsDebug.jammerProbability = true
+--iadsDebug.IADSStatus = true
+--iadsDebug.contacts = true
+--iadsDebug.jammerProbability = true
 --iadsDebug.samSiteStatusEnvOutput = true
 --iadsDebug.earlyWarningRadarStatusEnvOutput = true
-iadsDebug.addedEWRadar = true
-iadsDebug.addedSAMSite = true
-iadsDebug.warnings = true
-iadsDebug.radarWentLive = true
-iadsDebug.radarWentDark = true
-iadsDebug.harmDefence = true
+--iadsDebug.addedEWRadar = true
+--iadsDebug.addedSAMSite = true
+--iadsDebug.warnings = true
+--iadsDebug.radarWentLive = true
+--iadsDebug.radarWentDark = true
+--iadsDebug.harmDefence = true
 
 --- fine debug ---
