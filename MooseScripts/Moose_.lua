@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 env.info('*** MOOSE GITHUB Commit Hash ID: 2023-06-10T22:52:13.0000000Z-3bbd55cfc23fa2cf1d2c7a58ff436a119a3a6a07 ***')
 env.info('*** MOOSE STATIC INCLUDE START *** ')
 ENUMS={}
