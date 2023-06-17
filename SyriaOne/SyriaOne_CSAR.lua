@@ -19,7 +19,7 @@ syriaCSAR:Start()
 local csarZone = ZONE:New("CSARMissionZone")
 
 local function startCsarMission()
-    if activeCsarMissions < 3 then
+    if activeCsarMissions < 5 then
         syriaCSAR:SpawnCSARAtZone(csarZone, coalition.side.BLUE, "PilotaTEST", true)
         activeCsarMissions = activeCsarMissions + 1
     end
