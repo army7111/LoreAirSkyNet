@@ -15,7 +15,7 @@ syriaCSAR:Start()
 
 local csarZone = ZONE:New("CSARMissionZone")
 
-local csarGroups = SET_GROUP:New():FilterPrefixes({"CSAR"}):FilterStart()
+local csarGroups = SET_GROUP:New():FilterPrefixes({ "CSAR" }):FilterStart()
 
 local csarDetection = DETECTION_UNITS:New(csarGroups, csarZone, 1000)
 
