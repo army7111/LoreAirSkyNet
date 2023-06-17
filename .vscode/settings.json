@@ -2,7 +2,9 @@
     "Lua.diagnostics.globals": [
         "coalition"
     ],
-    "Lua.workspace.userThirdParty": [
+    "Lua.workspace.library": [
         "C:\\Users\\Army7\\Documents\\GitHub\\LoreAirSkyNet\\MooseScripts\\Moose.lua"
-    ]
+    ],
+    "Lua.workspace.preloadFileSize": 5000,
+    "Lua.workspace.maxPreload": 10000
 }

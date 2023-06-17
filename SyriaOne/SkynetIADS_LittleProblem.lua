@@ -44,17 +44,39 @@ Detection = DETECTION_AREAS:New( DetectionSetGroup, 30000 )
 A2ADispatcher = AI_A2A_DISPATCHER:New( Detection )
 A2ADispatcher:SetEngageRadius() -- 100000 is the default value.
 A2ADispatcher:SetGciRadius() -- 200000 is the default value.
-
+A2ADispatcher:SetDisengageRadius(200000)
+-- Imposta Confini
 REDBorderZone = ZONE_POLYGON:New( "RED-BORDER", GROUP:FindByName( "RED-BORDER" ) )
 A2ADispatcher:SetBorderZone( REDBorderZone )
-A2ADispatcher:SetSquadron( "Larnaca", AIRBASE.Syria.Larnaca , { "REDAICAP-Mig29" }, 20 )
+-- INIZIO SQUAD Decl
+-- Squad Larnaca
+A2ADispatcher:SetSquadron( "Larnaca", AIRBASE.Syria.Larnaca , { "REDAICAP-Mig29" }, 10 )
 A2ADispatcher:SetSquadronGrouping( "Larnaca", 2 )
 A2ADispatcher:SetSquadronGci( "Larnaca", 900, 1200 )
-A2ADispatcher:SetTacticalDisplay(true)
+-- Squad Gecitkale
+A2ADispatcher:SetSquadron("Gecitkale", AIRBASE.Syria.Gecitkale , { "REDAICAP-Mig29" }, 10)
+A2ADispatcher:SetSquadronGrouping( "Gecitkale", 2)
+A2ADispatcher:SetSquadronGci( "Gecitkale", 900, 1200)
+-- Squad Incirlik
+A2ADispatcher:SetSquadron("Incirlik", AIRBASE.Syria.Incirlik , { "REDAICAP-Mig29" }, 10)
+A2ADispatcher:SetSquadronGrouping( "Incirlik", 2)
+A2ADispatcher:SetSquadronGci( "Incirlik", 900, 1200)
+--FINE SQUAD Decl
+A2ADispatcher:SetTacticalDisplay(false)
 A2ADispatcher:SetDefaultTakeoffFromParkingHot()
 A2ADispatcher:SetDefaultLandingAtRunway()
 A2ADispatcher:Start()
 
+--Scheduler per refill ogni 2 ore
+
+local function refillSquadrons()
+    A2ADispatcher:SetSquadron("Larnaca", AIRBASE.Syria.Larnaca , { "REDAICAP-Mig29" }, 10)
+    A2ADispatcher:SetSquadron("Gecitkale", AIRBASE.Syria.Gecitkale , { "REDAICAP-Mig29" }, 10)
+    A2ADispatcher:SetSquadron("Incirlik", AIRBASE.Syria.Incirlik , { "REDAICAP-Mig29" }, 10)
+    MESSAGE:New("Squadrons have been refilled!",10,"System"):ToAll()
+end
+local refillScheduler = SCHEDULER:New(nil, refillSquadrons, {}, 0, 7200) -- 7200 secondi sono 2 ore
+-- Fine scheduler
 --- FINE MOOSE AI-A2A-DISPATCHER
 
 RedIADS:addMooseSetGroup(DetectionSetGroup)

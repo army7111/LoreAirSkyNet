@@ -6,7 +6,10 @@ syriaCSAR.topmenuname = "Combat Search & Rescue"
 syriaCSAR.useprefix = true
 syriaCSAR.csarPrefix = "CSAR"
 
+local activeCsarMissions = 0
+
 function syriaCSAR:OnAfterPilotDown(From, Event, To, SpawnedGroup, Frequency, Leadername, CoordinatesText)
+    activeCsarMissions = activeCsarMissions + 1
     MESSAGE:New(string.format("Il pilota %s è abbattuto! La frequenza per il CSAR è %s KHz, le coordinate sono %s.",
         Leadername, Frequency, CoordinatesText), 15):ToAll()
 end
@@ -15,35 +18,17 @@ syriaCSAR:Start()
 
 local csarZone = ZONE:New("CSARMissionZone")
 
-local csarGroups = SET_GROUP:New():FilterPrefixes({ "CSAR" }):FilterStart()
-
-local csarDetection = DETECTION_UNITS:New(csarGroups, csarZone, 1000)
-
 local function startCsarMission()
-    syriaCSAR:SpawnCSARAtZone(csarZone, coalition.side.BLUE, "PilotaTEST", true)
-end
-
-local csarMissionScheduler = SCHEDULER:New(nil, startCsarMission, {}, 0, 600)
-
-csarDetection:Start()
-
-CSAR_SCHEDULER_RUNNING = false
-
-function csarDetection:OnAfterDetect(EventData)
-    local detectedSets = EventData.DetectedSets
-    local firstSet = detectedSets and detectedSets[1]
-
-    if firstSet and firstSet:Count() > 0 then
-        if not CSAR_SCHEDULER_RUNNING then
-            csarMissionScheduler:Start()
-            MESSAGE:New("Scheduler CSAR Avviato.", 15)
-            CSAR_SCHEDULER_RUNNING = true
-        end
-    else
-        if CSAR_SCHEDULER_RUNNING then
-            csarMissionScheduler:Stop()
-            MESSAGE:New("Scheduler CSAR Interrotto.", 15)
-            CSAR_SCHEDULER_RUNNING = false
-        end
+    if activeCsarMissions < 3 then
+        syriaCSAR:SpawnCSARAtZone(csarZone, coalition.side.BLUE, "PilotaTEST", true)
+        activeCsarMissions = activeCsarMissions + 1
     end
 end
+
+function syriaCSAR:OnAfterRescued(From, Event, To, HeliUnit, HeliName, PilotsSaved)
+    activeCsarMissions = activeCsarMissions - 1
+    MESSAGE:New("Missione CSAR terminata con successo.", 15):ToAll()
+end
+
+local checkActiveMissionsScheduler = SCHEDULER:New(nil, startCsarMission, {}, 0, 60)
+checkActiveMissionsScheduler:Start()
