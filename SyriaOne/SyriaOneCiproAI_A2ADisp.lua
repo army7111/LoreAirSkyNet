@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 
 -- START MOOSE CODE:
 -- Define a SET_GROUP object that builds a collection of groups that define the EWR network.

@@ -1,6 +1,6 @@
 {
     "Lua.diagnostics.globals": [
-        "StaticObject",
         "coalition"
-    ]
+    ],
+    "Lua.diagnostics.workspaceDelay": 30000
 }
