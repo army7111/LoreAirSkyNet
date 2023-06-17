@@ -62,7 +62,7 @@ A2ADispatcher:SetSquadron("Incirlik", AIRBASE.Syria.Incirlik , { "REDAICAP-Mig29
 A2ADispatcher:SetSquadronGrouping( "Incirlik", 2)
 A2ADispatcher:SetSquadronGci( "Incirlik", 900, 1200)
 --FINE SQUAD Decl
-A2ADispatcher:SetTacticalDisplay(false)
+A2ADispatcher:SetTacticalDisplay(true)
 A2ADispatcher:SetDefaultTakeoffFromParkingHot()
 A2ADispatcher:SetDefaultLandingAtRunway()
 A2ADispatcher:Start()
@@ -85,16 +85,16 @@ RedIADS:addMooseSetGroup(DetectionSetGroup)
 
 local iadsDebug = RedIADS:getDebugSettings()
 
-iadsDebug.IADSStatus = false
+iadsDebug.IADSStatus = true
 --iadsDebug.contacts = true
 --iadsDebug.jammerProbability = true
 --iadsDebug.samSiteStatusEnvOutput = true
---iadsDebug.earlyWarningRadarStatusEnvOutput = true
+iadsDebug.earlyWarningRadarStatusEnvOutput = true
 --iadsDebug.addedEWRadar = true
 --iadsDebug.addedSAMSite = true
 --iadsDebug.warnings = true
 --iadsDebug.radarWentLive = true
 --iadsDebug.radarWentDark = true
---iadsDebug.harmDefence = true
+iadsDebug.harmDefence = true
 
 --- fine debug ---
