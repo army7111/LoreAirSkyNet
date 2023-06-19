@@ -9,7 +9,7 @@ RedIADS:addEarlyWarningRadarsByPrefix('REDEW')
 RedIADS:addRadioMenu()
 RedIADS:setUpdateInterval(5)
 RedIADS:getSAMSiteByGroupName('REDSAM-S300CIPRO'):setActAsEW(true)
-RedIADS:getSAMSiteByGroupName('REDSAM-S300CIPRO-1'):setActAsEW(true)
+RedIADS:getSAMSiteByGroupName('REDSAM-S300CIPROWest'):setActAsEW(true)
 
 -- Impostazione del range di ingaggio al massimo per tutti i siti SAM
 local allSAMSites = RedIADS:getSAMSites()
@@ -34,6 +34,9 @@ RedIADS:getSAMSiteByGroupName('REDSAM-SA11CC'):addPointDefence(sa15PDCC3)
 local sa15PDEast = RedIADS:getSAMSiteByGroupName('REDSAM-PDSA10East')
 RedIADS:getSAMSiteByGroupName('REDSAM-S300CIPRO'):addPointDefence(sa15PDEast)
 
+local sa15PDWest = RedIADS:getSAMSiteByGroupName('REDSAM-SA15PDS20B')
+RedIADS:getSAMSiteByGroupName('REDSAM-S300CIPROWest'):addPointDefence(sa15PDWest)
+
 -- Attiva sistema IADS Skynet
 RedIADS:activate()
 
@@ -50,19 +53,19 @@ REDBorderZone = ZONE_POLYGON:New( "RED-BORDER", GROUP:FindByName( "RED-BORDER" )
 A2ADispatcher:SetBorderZone( REDBorderZone )
 -- INIZIO SQUAD Decl
 -- Squad Larnaca
-A2ADispatcher:SetSquadron( "Larnaca", AIRBASE.Syria.Larnaca , { "REDAICAP-Mig29" }, 10 )
+A2ADispatcher:SetSquadron( "Larnaca", AIRBASE.Syria.Larnaca , { "REDAICAP" }, 10 )
 A2ADispatcher:SetSquadronGrouping( "Larnaca", 2 )
 A2ADispatcher:SetSquadronGci( "Larnaca", 900, 1200 )
 -- Squad Gecitkale
-A2ADispatcher:SetSquadron("Gecitkale", AIRBASE.Syria.Gecitkale , { "REDAICAP-Mig29" }, 10)
+A2ADispatcher:SetSquadron("Gecitkale", AIRBASE.Syria.Gecitkale , { "REDAICAP" }, 10)
 A2ADispatcher:SetSquadronGrouping( "Gecitkale", 2)
 A2ADispatcher:SetSquadronGci( "Gecitkale", 900, 1200)
 -- Squad Incirlik
-A2ADispatcher:SetSquadron("Incirlik", AIRBASE.Syria.Incirlik , { "REDAICAP-Mig29" }, 10)
+A2ADispatcher:SetSquadron("Incirlik", AIRBASE.Syria.Incirlik , { "REDAICAP" }, 10)
 A2ADispatcher:SetSquadronGrouping( "Incirlik", 2)
 A2ADispatcher:SetSquadronGci( "Incirlik", 900, 1200)
 --FINE SQUAD Decl
-A2ADispatcher:SetTacticalDisplay(true)
+A2ADispatcher:SetTacticalDisplay(false)
 A2ADispatcher:SetDefaultTakeoffFromParkingHot()
 A2ADispatcher:SetDefaultLandingAtRunway()
 A2ADispatcher:Start()
@@ -70,9 +73,9 @@ A2ADispatcher:Start()
 --Scheduler per refill ogni 2 ore
 
 local function refillSquadrons()
-    A2ADispatcher:SetSquadron("Larnaca", AIRBASE.Syria.Larnaca , { "REDAICAP-Mig29" }, 10)
-    A2ADispatcher:SetSquadron("Gecitkale", AIRBASE.Syria.Gecitkale , { "REDAICAP-Mig29" }, 10)
-    A2ADispatcher:SetSquadron("Incirlik", AIRBASE.Syria.Incirlik , { "REDAICAP-Mig29" }, 10)
+    A2ADispatcher:SetSquadron("Larnaca", AIRBASE.Syria.Larnaca , { "REDAICAP" }, 10)
+    A2ADispatcher:SetSquadron("Gecitkale", AIRBASE.Syria.Gecitkale , { "REDAICAP" }, 10)
+    A2ADispatcher:SetSquadron("Incirlik", AIRBASE.Syria.Incirlik , { "REDAICAP" }, 10)
     MESSAGE:New("Squadrons have been refilled!",10,"System"):ToAll()
 end
 local refillScheduler = SCHEDULER:New(nil, refillSquadrons, {}, 0, 7200) -- 7200 secondi sono 2 ore
@@ -85,16 +88,16 @@ RedIADS:addMooseSetGroup(DetectionSetGroup)
 
 local iadsDebug = RedIADS:getDebugSettings()
 
-iadsDebug.IADSStatus = true
+iadsDebug.IADSStatus = false
 --iadsDebug.contacts = true
 --iadsDebug.jammerProbability = true
 --iadsDebug.samSiteStatusEnvOutput = true
-iadsDebug.earlyWarningRadarStatusEnvOutput = true
+iadsDebug.earlyWarningRadarStatusEnvOutput = false
 --iadsDebug.addedEWRadar = true
 --iadsDebug.addedSAMSite = true
 --iadsDebug.warnings = true
 --iadsDebug.radarWentLive = true
 --iadsDebug.radarWentDark = true
-iadsDebug.harmDefence = true
+iadsDebug.harmDefence = false
 
 --- fine debug ---
