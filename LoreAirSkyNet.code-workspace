@@ -2,6 +2,12 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../MOOSE_INCLUDE"
+		},
+		{
+			"path": "../MOOSE_SOUND"
 		}
 	],
 	"settings": {
