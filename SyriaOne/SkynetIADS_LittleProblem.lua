@@ -8,7 +8,7 @@ RedIADS:addSAMSitesByPrefix('REDSAM')
 RedIADS:addEarlyWarningRadarsByPrefix('REDEW')
 RedIADS:addRadioMenu()
 RedIADS:setUpdateInterval(5)
-RedIADS:getSAMSiteByGroupName('REDSAM-S300CIPRO'):setActAsEW(true)
+--RedIADS:getSAMSiteByGroupName('REDSAM-S300CIPRO'):setActAsEW(true)
 RedIADS:getSAMSiteByGroupName('REDSAM-S300CIPROWest'):setActAsEW(true)
 
 -- Impostazione del range di ingaggio al massimo per tutti i siti SAM
@@ -31,8 +31,9 @@ RedIADS:getSAMSiteByGroupName('REDSAM-SA11CC'):addPointDefence(sa15PDCC2)
 local sa15PDCC3 = RedIADS:getSAMSiteByGroupName('REDSAM-PDCC-3')
 RedIADS:getSAMSiteByGroupName('REDSAM-SA11CC'):addPointDefence(sa15PDCC3)
 
-local sa15PDEast = RedIADS:getSAMSiteByGroupName('REDSAM-PDSA10East')
+local sa15PDEast = RedIADS:getSAMSiteByGroupName('REDSAM-PDSA15East')
 RedIADS:getSAMSiteByGroupName('REDSAM-S300CIPRO'):addPointDefence(sa15PDEast)
+RedIADS:getSAMSiteByGroupName('REDSAM-S300CIPRO'):setIgnoreHARMSWhilePointDefencesHaveAmmo(true)
 
 local sa15PDWest = RedIADS:getSAMSiteByGroupName('REDSAM-SA15PDS20B')
 RedIADS:getSAMSiteByGroupName('REDSAM-S300CIPROWest'):addPointDefence(sa15PDWest)

@@ -5,6 +5,6 @@
     "Lua.workspace.library": [
         "C:\\Users\\Army7\\Documents\\GitHub\\LoreAirSkyNet\\MooseScripts\\Moose.lua"
     ],
-    "Lua.workspace.preloadFileSize": 5000,
-    "Lua.workspace.maxPreload": 12000
+    "Lua.workspace.preloadFileSize": 10000,
+    "Lua.workspace.maxPreload": 100
 }
