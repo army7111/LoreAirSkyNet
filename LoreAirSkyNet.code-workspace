@@ -4,13 +4,12 @@
 			"path": "."
 		},
 		{
-			"path": "../MOOSE_INCLUDE"
-		},
-		{
 			"path": "../MOOSE_SOUND"
 		}
 	],
 	"settings": {
-		"lua.targetVersion": "5.3"
+		"lua.targetVersion": "5.3",
+		"Lua.workspace.preloadFileSize": 10000,
+		"Lua.workspace.maxPreload": 500
 	}
 }
