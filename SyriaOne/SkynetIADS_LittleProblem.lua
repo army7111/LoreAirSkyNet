@@ -54,18 +54,31 @@ REDBorderZone = ZONE_POLYGON:New( "RED-BORDER", GROUP:FindByName( "RED-BORDER" )
 A2ADispatcher:SetBorderZone( REDBorderZone )
 -- INIZIO SQUAD Decl
 -- Squad Larnaca
-A2ADispatcher:SetSquadron( "Larnaca", AIRBASE.Syria.Larnaca , { "REDAICAP" }, 10 )
+A2ADispatcher:SetSquadron( "Larnaca", AIRBASE.Syria.Larnaca , { "REDAICAP" }, 5 )
 A2ADispatcher:SetSquadronGrouping( "Larnaca", 2 )
 A2ADispatcher:SetSquadronGci( "Larnaca", 900, 1200 )
 -- Squad Gecitkale
-A2ADispatcher:SetSquadron("Gecitkale", AIRBASE.Syria.Gecitkale , { "REDAICAP" }, 10)
+A2ADispatcher:SetSquadron("Gecitkale", AIRBASE.Syria.Gecitkale , { "REDAICAP" }, 5)
 A2ADispatcher:SetSquadronGrouping( "Gecitkale", 2)
 A2ADispatcher:SetSquadronGci( "Gecitkale", 900, 1200)
 -- Squad Incirlik
-A2ADispatcher:SetSquadron("Incirlik", AIRBASE.Syria.Incirlik , { "REDAICAP" }, 10)
+A2ADispatcher:SetSquadron("Incirlik", AIRBASE.Syria.Incirlik , { "REDAICAP" }, 5)
 A2ADispatcher:SetSquadronGrouping( "Incirlik", 2)
 A2ADispatcher:SetSquadronGci( "Incirlik", 900, 1200)
 --FINE SQUAD Decl
+-- Dichiarazione CAP Zone e CAP
+
+CapZoneA = ZONE:New( "REDCAPZONEA")
+CapZoneB = ZONE:New( "REDCAPZONEB")
+
+A2ADispatcher:SetSquadronCap( "Incirlik", CapZoneB, 10000, 35000, 270, 400, 350, 700, "BARO")
+A2ADispatcher:SetSquadronCapInterval( "Incirlik", 1, 300, 1800)
+
+A2ADispatcher:SetSquadronCap( "Larnaca", CapZoneA, 10000, 35000, 270, 400, 350, 700, "BARO")
+A2ADispatcher:SetSquadronCapInterval( "Larnaca", 1, 300, 1800)
+
+-- FINE Dichiarazione CAP Zone e CAP
+
 A2ADispatcher:SetTacticalDisplay(false)
 A2ADispatcher:SetDefaultTakeoffFromParkingHot()
 A2ADispatcher:SetDefaultLandingAtRunway()
