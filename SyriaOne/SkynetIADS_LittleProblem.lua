@@ -71,10 +71,10 @@ A2ADispatcher:SetSquadronGci( "Incirlik", 900, 1200)
 CapZoneA = ZONE:New( "REDCAPZONEA")
 CapZoneB = ZONE:New( "REDCAPZONEB")
 
-A2ADispatcher:SetSquadronCap( "Incirlik", CapZoneB, 10000, 35000, 270, 400, 350, 700, "BARO")
+A2ADispatcher:SetSquadronCap( "Incirlik", CapZoneB, 10000, 35000, 486, 720, 630, 1260, "BARO")
 A2ADispatcher:SetSquadronCapInterval( "Incirlik", 1, 300, 1800)
 
-A2ADispatcher:SetSquadronCap( "Larnaca", CapZoneA, 10000, 35000, 270, 400, 350, 700, "BARO")
+A2ADispatcher:SetSquadronCap( "Larnaca", CapZoneA, 10000, 35000, 486, 720, 630, 1260, "BARO")
 A2ADispatcher:SetSquadronCapInterval( "Larnaca", 1, 300, 1800)
 
 -- FINE Dichiarazione CAP Zone e CAP
