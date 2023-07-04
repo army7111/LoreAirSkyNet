@@ -22,57 +22,21 @@ newCaptureZone(captureZones, "Gecitkale")
 newCaptureZone(captureZones, "EastCypro")
 newCaptureZone(captureZones, "Testadiponte")
 
--- Funzione per gestire l'evento di zona di cattura sotto protezione
-function handleCaptureZoneGuarded(zone)
-    local Coalition = zone:GetCoalition()
-    if Coalition == coalition.side.BLUE then
-        BLUE_CC:MessageTypeToCoalition(string.format("%s è sotto protezione BLUE", zone:GetName()), MESSAGE.Type.Information)
-        RED_CC:MessageTypeToCoalition(string.format("%s è sotto protezione BLUE", zone:GetName()), MESSAGE.Type.Information)
-    else
-        RED_CC:MessageTypeToCoalition(string.format("%s è sotto protezione RED", zone:GetName()), MESSAGE.Type.Information)
-        BLUE_CC:MessageTypeToCoalition(string.format("%s è sotto protezione RED", zone:GetName()), MESSAGE.Type.Information)
+-- Funzione per gestire gli eventi di transizione delle zone di cattura
+function handleCaptureZoneEvent(self, From, Event, To)
+    local Coalition = self:GetCoalition()
+    self:E({ Coalition = Coalition })
+
+    -- Gestisci l'evento di cambio di stato
+    if From ~= To then
+        if Coalition == coalition.side.BLUE then
+            self:Smoke(SMOKECOLOR.Blue)
+            US_CC:MessageTypeToCoalition(string.format("%s is under protection of the USA", self:GetZoneName()), MESSAGE.Type.Information)
+            RU_CC:MessageTypeToCoalition(string.format("%s is under protection of the USA", self:GetZoneName()), MESSAGE.Type.Information)
+        else
+            self:Smoke(SMOKECOLOR.Red)
+            RU_CC:MessageTypeToCoalition(string.format("%s is under protection of Russia", self:GetZoneName()), MESSAGE.Type.Information)
+            US_CC:MessageTypeToCoalition(string.format("%s is under protection of Russia", self:GetZoneName()), MESSAGE.Type.Information)
+        end
     end
 end
-
--- Funzione per gestire l'evento di zona di cattura vuota
-function handleCaptureZoneEmpty(zone)
-    BLUE_CC:MessageTypeToCoalition(string.format("%s non è protetta e deve essere catturata!", zone:GetName()), MESSAGE.Type.Information)
-    RED_CC:MessageTypeToCoalition(string.format("%s non è protetta e deve essere catturata!", zone:GetName()), MESSAGE.Type.Information)
-end
-
--- Funzione per gestire l'evento di zona di cattura sotto attacco
-function handleCaptureZoneAttacked(zone)
-    local Coalition = zone:GetCoalition()
-    if Coalition == coalition.side.BLUE then
-        BLUE_CC:MessageTypeToCoalition(string.format("%s è sotto attacco RED", zone:GetName()), MESSAGE.Type.Information)
-        RED_CC:MessageTypeToCoalition(string.format("Stiamo attaccando %s", zone:GetName()), MESSAGE.Type.Information)
-    else
-        RED_CC:MessageTypeToCoalition(string.format("%s è sotto attacco BLUE", zone:GetName()), MESSAGE.Type.Information)
-        BLUE_CC:MessageTypeToCoalition(string.format("Stiamo attaccando %s", zone:GetName()), MESSAGE.Type.Information)
-    end
-end
-
--- Funzione per gestire l'evento di zona di cattura catturata
-function handleCaptureZoneCaptured(zone)
-    local Coalition = zone:GetCoalition()
-    if Coalition == coalition.side.BLUE then
-        RED_CC:MessageTypeToCoalition(string.format("%s è stata catturata dai BLUE .. L'abbiamo persa!", zone:GetName()), MESSAGE.Type.Information)
-        BLUE_CC:MessageTypeToCoalition(string.format("Abbiamo catturato %s, Ottimo lavoro!", zone:GetName()), MESSAGE.Type.Information)
-    else
-        BLUE_CC:MessageTypeToCoalition(string.format("%s è catturata dai RED, L'abbiamo persa!", zone:GetName()), MESSAGE.Type.Information)
-        RED_CC:MessageTypeToCoalition(string.format("Abbiamo catturato %s, Ottimo lavoro!", zone:GetName()), MESSAGE.Type.Information)
-    end
-end
-
--- Funzione per avviare il monitoraggio degli eventi di transizione delle zone di cattura
-function startCaptureZoneEventMonitoring()
-    for _, zone in pairs(captureZones) do
-        zone:OnEnterGuarded(handleCaptureZoneGuarded)
-        zone:OnEnterEmpty(handleCaptureZoneEmpty)
-        zone:OnEnterAttacked(handleCaptureZoneAttacked)
-        zone:OnEnterCaptured(handleCaptureZoneCaptured)
-    end
-end
-
--- Avvia il monitoraggio degli eventi di transizione delle zone di cattura
-startCaptureZoneEventMonitoring()
