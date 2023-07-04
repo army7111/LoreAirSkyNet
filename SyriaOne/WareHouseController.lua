@@ -1,14 +1,19 @@
 -- Decl Warehouses
 WarehousesLAND = {}
 WarehousesCypro = {}
+-- Paphos
 WarehousesCypro.Paphos = WAREHOUSE:New(STATIC:FindByName("WHPAPHOS"), "Warehouse Paphos")
 WarehousesCypro.Paphos:Start()
+-- Akrotiri
 WarehousesCypro.Akrotiri = WAREHOUSE:New(STATIC:FindByName("WHAKROTIRI"), "Warehouse Akroptiri")
 WarehousesCypro.Akrotiri:Start()
+-- Pinarbashi
 WarehousesCypro.Pinarbashi = WAREHOUSE:New(STATIC:FindByName("WHPINARBASHI"), "Warehouse Pinarbashi")
 WarehousesCypro.Pinarbashi:Start()
+-- Lakatamia
 WarehousesCypro.Lakatamia = WAREHOUSE:New(STATIC:FindByName("WHLAKATAMIA"), "Warehouse Lakatamia")
 WarehousesCypro.Lakatamia:Start()
+-- Ercan
 WarehousesCypro.Ercan = WAREHOUSE:New(STATIC:FindByName("WHERCAN"), "Warehouse Ercan")
 WarehousesCypro.Ercan:Start()
 -- Larnaca
@@ -19,6 +24,7 @@ WarehousesCypro.Larnaca:Start()
 -- Kingsfield
 WarehousesCypro.Kingsfield = WAREHOUSE:New(STATIC:FindByName("WHKINGSFIELD"), "Warehouse Kingsfield")
 WarehousesCypro.Kingsfield:Start()
+-- Gecitkale
 WarehousesCypro.Gecitkale = WAREHOUSE:New(STATIC:FindByName("WHGECITKALE"), "Warehouse Gecitkale")
 WarehousesCypro.Gecitkale:Start()
 -- East Cypro
@@ -26,6 +32,9 @@ WarehousesCypro.EastCypro = WAREHOUSE:New(STATIC:FindByName("WHEASTCYPRO"), "War
 local pzEastCypro = ZONE_POLYGON:FindByName("CyproEastPORT")
 WarehousesCypro.EastCypro:SetPortZone(pzEastCypro)
 WarehousesCypro.EastCypro:Start()
+-- Testadiponte
+WarehousesCypro.Testadiponte = WAREHOUSE:New(STATIC:FindByName("WHTestadiPonte"), "Warehouse Testa di Ponte Cipro")
+WarehousesCypro.Testadiponte:Start()
 -- Bassel_Al_Assad
 WarehousesLAND.Bassel_Al_Assad = WAREHOUSE:New(STATIC:FindByName("WHBASSELALASSAD"), "Warehouse Bassel Al-Assad")
 local pzBassel = ZONE_POLYGON:FindByName("PZBassel")
@@ -35,9 +44,18 @@ WarehousesLAND.Bassel_Al_Assad:Start()
 WarehouseTarawa = WAREHOUSE:New(STATIC:FindByName("WHTarawa"), "Warehouse Tarawa")
 WarehouseTarawa:Start()
 
--- FINE Decl Warehouses
+-- Inizializzazione Warehouse con unità
+WarehousesCypro.Ercan:AddAsset("Mi24", 50)
+WarehousesCypro.Ercan:AddAsset("Ka503", 50)
+WarehousesCypro.Ercan:AddAsset("TEMPL-RedTank", 50)
+WarehousesCypro.Ercan:AddAsset("TEMPL-SA15", 50)
+WarehousesCypro.Ercan:AddAsset("TEMPL-RedTruck", 50)
+WarehousesCypro.Ercan:AddAsset("TEMPL-RedInf", 100)
+WarehousesCypro.Ercan:AddAsset("TEMPL-AirTransportRED", 50)
+WarehousesCypro.Ercan:AddAsset("REDAICAP", 25)
 
 -- Dichiarazione Unita e tipo di unita
+TransportRED = GROUP:FindByName("TEMPL-AirTransportRED")
 Inf = GROUP:FindByName("TEMPL-RedInf")
 Aaa = GROUP:FindByName("TEMPL-RedAAA")
 Truck = GROUP:FindByName("TEMPL-RedTruck")
@@ -47,54 +65,87 @@ Ka503 = GROUP:FindByName("Ka503")
 AV8BShip = GROUP:FindByName("AV8B")
 -- Fine Dichiarazione Unita e tipo
 
--- Dichiarazione zone di attacco aeroporti
-local az_EastFarp = ZONE:New("AZEastFARP")
-local az_Gecitkale = ZONE:New("AZGecitkale")
-local az_Kingsfield = ZONE:New("AZKingsfield")
-local az_Ercan = ZONE:New("AZErcan")
-local az_Larnaca = ZONE:New("AZLarnaca")
-local az_Lakatamia = ZONE:New("AZLakatamia")
-local az_Pinarbashi = ZONE:New("AZPinarbashi")
-local az_Akrotiri = ZONE:New("AZAkrotiri")
-local az_Paphos = ZONE:New("AZPaphos")
--- Fine Dichiarazione zone di attacco Aeroporti
+-- Funzione per la richiesta semplice di unità: ex. 
+function RequestResource(fromWarehouse, toWarehouse, groupName, number)
+    fromWarehouse:AddRequest(toWarehouse, WAREHOUSE.Descriptor.GROUPNAME, groupName, number)
+end
 
+function RequestResourceSelfProp(fromWarehouse, toWarehouse, groupName, number, TransportType)
+    fromWarehouse:AddRequest(toWarehouse, WAREHOUSE.Descriptor.GROUPNAME, groupName, number, SELFPROPELLED)
+end
+--Coppie fromToWarehouse per funzione random di convogli
 
--- Inizializzazione sistema di difesa/attacco automatico aeroporti
--- do
---     local RED_CC = COMMANDCENTER:New( STATIC:FindByName("Command Center"), "Red HQ")
---     local BLUE_CC = COMMANDCENTER:New( STATIC:FindByName("BLUHQ"), "BLUE HQ")
--- end
+-- fromToWarehouse = {
+--     {WarehousesCypro.EastCypro, WarehousesCypro.Ercan},
+--     {WarehousesCypro.Akrotiri, WarehousesCypro.Ercan},
+--     {WarehousesCypro.Gecitkale, WarehousesCypro.Ercan},
+--     {WarehousesCypro.Kingsfield, WarehousesCypro.Ercan},
+--     {WarehousesCypro.Lakatamia, WarehousesCypro.Ercan},
+--     {WarehousesCypro.Larnaca, WarehousesCypro.Ercan},
+--     {WarehousesCypro.Paphos, WarehousesCypro.Ercan},
+--     {WarehousesCypro.Pinarbashi, WarehousesCypro.Ercan}
+-- }
 
--- --- @param Functional.ZoneCaptureCoailition#ZONE_CAPTURE_COALITION self
--- function ZoneCaptureCoailition:OnenterGuarded()
+FromToWarehouseCAP = {
+    {WarehousesCypro.Ercan, WarehousesCypro.Akrotiri},
+    {WarehousesCypro.Ercan, WarehousesCypro.Gecitkale},
+    {WarehousesCypro.Ercan, WarehousesCypro.Kingsfield},
+    {WarehousesCypro.Ercan, WarehousesCypro.Larnaca},
+    {WarehousesCypro.Ercan, WarehousesCypro.Paphos},
+    {WarehousesCypro.Ercan, WarehousesCypro.Pinarbashi}
+}
 
---     local coalition = self:GetCoalition()
---     local ZoneName = self:GetZoneName()
---     if coalition == coalition.side.BLUE then
---         BLUE_CC:MessageTypeToCoalition( string.format("La zona %s è ancora controllata, i rinforzi sono in arrivo", ZoneName ),MESSAGE.Type.Information)
---     end
-    
--- end
+FromToWarehouseGROUND = {
+    {WarehousesCypro.Ercan, WarehousesCypro.EastCypro},
+    {WarehousesCypro.Ercan, WarehousesCypro.Testadiponte},
+    {WarehousesCypro.Ercan, WarehousesCypro.Akrotiri},
+    {WarehousesCypro.Ercan, WarehousesCypro.Gecitkale},
+    {WarehousesCypro.Ercan, WarehousesCypro.Kingsfield},
+    {WarehousesCypro.Ercan, WarehousesCypro.Larnaca},
+    {WarehousesCypro.Ercan, WarehousesCypro.Paphos},
+    {WarehousesCypro.Ercan, WarehousesCypro.Pinarbashi}
+}
 
--- Fine Inizializzazione sistema di difesa/attacco automatico aeroporti
---Inizializzazione WareHouses
-WarehousesCypro.Ercan:AddAsset(Inf, 10)
-WarehousesCypro.Ercan:AddAsset(Aaa, 100)
-WarehousesCypro.Ercan:AddAsset(Truck, 100)
-WarehousesCypro.Ercan:AddAsset(SAMTor, 100)
-WarehousesCypro.Ercan:AddAsset(TankRed, 100)
+FromToWarehouseHeli = {
+    {WarehousesCypro.Ercan, WarehousesCypro.EastCypro},
+    {WarehousesCypro.Ercan, WarehousesCypro.Akrotiri},
+    {WarehousesCypro.Ercan, WarehousesCypro.Gecitkale},
+    {WarehousesCypro.Ercan, WarehousesCypro.Kingsfield},
+    {WarehousesCypro.Ercan, WarehousesCypro.Larnaca},
+    {WarehousesCypro.Ercan, WarehousesCypro.Pinarbashi}
+}
 
-WarehousesCypro.EastCypro:AddAsset(SAMTor, 2)
-WarehousesCypro.EastCypro:SetAutoDefenceOn()
+AirframesCAP = {"REDAICAP", "REDAICAP"}
+AirframesHELI = {"Ka503", "Ka503"}
+GroundTank = {"TEMPL-RedTank", "TEMPL-RedAAA"}
 
-WarehousesLAND.Bassel_Al_Assad:AddAsset(AV8BShip, 10)
-WarehousesLAND.Bassel_Al_Assad:AddAsset(Ka503, 10)
---Fine Inizializzazione
+function ScheduleCAPRequest()
+    local warehousePair = FromToWarehouseCAP[math.random(2, table.getn(FromToWarehouseCAP))]
+    local currFromWarehouse = warehousePair[1]
+    local currToWarehouse = warehousePair[2]
+    local currGroup = AirframesCAP[math.random(2, table.getn(AirframesCAP))]
+    --local currNumber = math.random(2,2)
+    RequestResource(currFromWarehouse, currToWarehouse, currGroup, 2)
+end
 
-WarehousesCypro.Ercan:AddAsset(GROUP:FindByName("REDSAM-PDSA10East"), 1)
-WarehousesCypro.Ercan:AddAsset(GROUP:FindByName("CARGOHELITMPL"), 10)
-WarehousesCypro.Ercan:AddRequest(WarehousesCypro.EastCypro, WAREHOUSE.Descriptor.GROUPNAME, "REDSAM-PDSA10East", 1, WAREHOUSE.TransportType.HELICOPTER)
+function ScheduleWHrefill()
+    local warehousePair = FromToWarehouseHeli[math.random(2, table.getn(FromToWarehouseHeli))]
+    local currFromWarehouse = warehousePair[1]
+    local currToWarehouse = warehousePair[2]
+    local currGroup = AirframesHELI[math.random(2, table.getn(AirframesHELI))]
+    local currNumber = math.random(1,2)
+    RequestResource(currFromWarehouse, currToWarehouse, currGroup, currNumber)
+end
 
-WarehousesLAND.Bassel_Al_Assad:AddRequest(WarehouseTarawa, WAREHOUSE.Descriptor.GROUPNAME , "AV8BShip", 2, WAREHOUSE.TransportType.SELFPROPELLED)
-WarehousesLAND.Bassel_Al_Assad:AddRequest(WarehouseTarawa, WAREHOUSE.Descriptor.UNITTYPE, "Ka-50 III", 2, WAREHOUSE.TransportType.SELFPROPELLED)
+function ScheduleGROUNDWHRefill()
+    local warehousePair = FromToWarehouseGROUND[math.random(2, table.getn(FromToWarehouseGROUND))]
+    local currFromWarehouse = warehousePair[1]
+    local currToWarehouse = warehousePair[2]
+    local currGroup = GroundTank[math.random(2, table.getn(GroundTank))]
+    local currNumber = math.random(1,5)
+    RequestResourceSelfProp(currFromWarehouse, currToWarehouse, currGroup, currNumber, SELFPROPELLED)
+end
+
+RedCapScheduler = SCHEDULER:New(nil, ScheduleCAPRequest, {}, 10, 20*60, 1.0, 3600*24)
+HeliScheduler = SCHEDULER:New( nil, ScheduleWHrefill, {}, 60, 20*60, 1.0, 3600*24)
+GroundUnitScheduler = SCHEDULER:New( nil, ScheduleGROUNDWHRefill, {}, 30, 60*15, 1.0, 3600*24)

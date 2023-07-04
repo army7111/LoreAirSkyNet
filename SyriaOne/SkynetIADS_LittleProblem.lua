@@ -79,7 +79,7 @@ A2ADispatcher:SetSquadronCapInterval( "Larnaca", 1, 300, 1800)
 
 -- FINE Dichiarazione CAP Zone e CAP
 
-A2ADispatcher:SetTacticalDisplay(false)
+A2ADispatcher:SetTacticalDisplay(true)
 A2ADispatcher:SetDefaultTakeoffFromParkingHot()
 A2ADispatcher:SetDefaultLandingAtRunway()
 A2ADispatcher:Start()
@@ -92,7 +92,7 @@ local function refillSquadrons()
     A2ADispatcher:SetSquadron("Incirlik", AIRBASE.Syria.Incirlik , { "REDAICAP" }, 5)
     MESSAGE:New("Squadrons have been refilled!",10,"System"):ToAll()
 end
-local refillScheduler = SCHEDULER:New(nil, refillSquadrons, {}, 0, 7200) -- 7200 secondi sono 2 ore
+local refillScheduler = SCHEDULER:New(nil, refillSquadrons, {}, 0, 3600*12) -- 7200 secondi sono 2 ore
 -- Fine scheduler
 --- FINE MOOSE AI-A2A-DISPATCHER
 
