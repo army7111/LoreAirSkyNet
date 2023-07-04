@@ -71,10 +71,10 @@ A2ADispatcher:SetSquadronGci( "Incirlik", 900, 1200)
 CapZoneA = ZONE:New( "REDCAPZONEA")
 CapZoneB = ZONE:New( "REDCAPZONEB")
 
-A2ADispatcher:SetSquadronCap( "Incirlik", CapZoneB, 10000, 35000, 486, 720, 630, 1260, "BARO")
+A2ADispatcher:SetSquadronCap( "Incirlik", CapZoneB, 3030, 10606, 486, 720, 630, 1260, "BARO")
 A2ADispatcher:SetSquadronCapInterval( "Incirlik", 1, 300, 1800)
 
-A2ADispatcher:SetSquadronCap( "Larnaca", CapZoneA, 10000, 35000, 486, 720, 630, 1260, "BARO")
+A2ADispatcher:SetSquadronCap( "Larnaca", CapZoneA, 3030, 10606, 486, 720, 630, 1260, "BARO")
 A2ADispatcher:SetSquadronCapInterval( "Larnaca", 1, 300, 1800)
 
 -- FINE Dichiarazione CAP Zone e CAP
@@ -88,8 +88,8 @@ A2ADispatcher:Start()
 
 local function refillSquadrons()
     A2ADispatcher:SetSquadron("Larnaca", AIRBASE.Syria.Larnaca , { "REDAICAP" }, 10)
-    A2ADispatcher:SetSquadron("Gecitkale", AIRBASE.Syria.Gecitkale , { "REDAICAP" }, 10)
-    A2ADispatcher:SetSquadron("Incirlik", AIRBASE.Syria.Incirlik , { "REDAICAP" }, 10)
+    A2ADispatcher:SetSquadron("Gecitkale", AIRBASE.Syria.Gecitkale , { "REDAICAP" }, 5)
+    A2ADispatcher:SetSquadron("Incirlik", AIRBASE.Syria.Incirlik , { "REDAICAP" }, 5)
     MESSAGE:New("Squadrons have been refilled!",10,"System"):ToAll()
 end
 local refillScheduler = SCHEDULER:New(nil, refillSquadrons, {}, 0, 7200) -- 7200 secondi sono 2 ore
