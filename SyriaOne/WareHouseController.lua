@@ -47,22 +47,22 @@ WarehouseTarawa:Start()
 -- Inizializzazione Warehouse con unità
 WarehousesCypro.Ercan:AddAsset("Mi24", 50)
 WarehousesCypro.Ercan:AddAsset("Ka503", 50)
-WarehousesCypro.Ercan:AddAsset("TEMPL-RedTank", 50)
-WarehousesCypro.Ercan:AddAsset("TEMPL-SA15", 50)
-WarehousesCypro.Ercan:AddAsset("TEMPL-RedTruck", 50)
+WarehousesCypro.Paphos:AddAsset("TEMPL-RedTank", 50)
+WarehousesCypro.Paphos:AddAsset("TEMPL-SA15", 50)
+WarehousesCypro.Paphos:AddAsset("TEMPL-RedTruck", 50)
 WarehousesCypro.Ercan:AddAsset("TEMPL-RedInf", 100)
-WarehousesCypro.Ercan:AddAsset("TEMPL-AirTransportRED", 50)
+WarehousesCypro.Paphos:AddAsset("TEMPL-AirTransportRED", 50)
 WarehousesCypro.Ercan:AddAsset("REDAICAP", 25)
 
 -- Dichiarazione Unita e tipo di unita
-TransportRED = GROUP:FindByName("TEMPL-AirTransportRED")
-Inf = GROUP:FindByName("TEMPL-RedInf")
-Aaa = GROUP:FindByName("TEMPL-RedAAA")
-Truck = GROUP:FindByName("TEMPL-RedTruck")
-SAMTor = GROUP:FindByName("TEMPL-SA15")
-TankRed = GROUP:FindByName("TEMPL-RedTank")
-Ka503 = GROUP:FindByName("Ka503")
-AV8BShip = GROUP:FindByName("AV8B")
+-- TransportRED = GROUP:FindByName("TEMPL-AirTransportRED")
+-- Inf = GROUP:FindByName("TEMPL-RedInf")
+-- Aaa = GROUP:FindByName("TEMPL-RedAAA")
+-- Truck = GROUP:FindByName("TEMPL-RedTruck")
+-- SAMTor = GROUP:FindByName("TEMPL-SA15")
+-- TankRed = GROUP:FindByName("TEMPL-RedTank")
+-- Ka503 = GROUP:FindByName("Ka503")
+-- AV8BShip = GROUP:FindByName("AV8B")
 -- Fine Dichiarazione Unita e tipo
 
 -- Funzione per la richiesta semplice di unità: ex. 
@@ -96,14 +96,12 @@ FromToWarehouseCAP = {
 }
 
 FromToWarehouseGROUND = {
-    {WarehousesCypro.Ercan, WarehousesCypro.EastCypro},
-    {WarehousesCypro.Ercan, WarehousesCypro.Testadiponte},
-    {WarehousesCypro.Ercan, WarehousesCypro.Akrotiri},
-    {WarehousesCypro.Ercan, WarehousesCypro.Gecitkale},
-    {WarehousesCypro.Ercan, WarehousesCypro.Kingsfield},
-    {WarehousesCypro.Ercan, WarehousesCypro.Larnaca},
-    {WarehousesCypro.Ercan, WarehousesCypro.Paphos},
-    {WarehousesCypro.Ercan, WarehousesCypro.Pinarbashi}
+    {WarehousesCypro.Paphos, WarehousesCypro.Akrotiri},
+    --{WarehousesCypro.Paphos, WarehousesCypro.Gecitkale},
+    --{WarehousesCypro.Paphos, WarehousesCypro.Kingsfield},
+    {WarehousesCypro.Paphos, WarehousesCypro.Larnaca}
+    --{WarehousesCypro.Paphos, WarehousesCypro.Ercan},
+    --{WarehousesCypro.Paphos, WarehousesCypro.Pinarbashi}
 }
 
 FromToWarehouseHeli = {
@@ -115,9 +113,16 @@ FromToWarehouseHeli = {
     {WarehousesCypro.Ercan, WarehousesCypro.Pinarbashi}
 }
 
+FromToGroundPropelled = {
+    {WarehousesCypro.Larnaca, WarehousesCypro.Testadiponte},
+    {WarehousesCypro.Larnaca, WarehousesCypro.EastCypro},
+    {WarehousesCypro.Akrotiri, WarehousesCypro.Testadiponte},
+    {WarehousesCypro.Akrotiri, WarehousesCypro.EastCypro}
+}
+
 AirframesCAP = {"REDAICAP", "REDAICAP"}
-AirframesHELI = {"Ka503", "Ka503"}
-GroundTank = {"TEMPL-RedTank", "TEMPL-RedAAA"}
+AirframesHELI = {"Ka503", "TEMPL-Mi24"}
+GroundTank = {"TEMPL-RedTank", "TEMPL-RedAAA", "TEMPL-SA15"}
 
 function ScheduleCAPRequest()
     local warehousePair = FromToWarehouseCAP[math.random(2, table.getn(FromToWarehouseCAP))]
@@ -143,9 +148,19 @@ function ScheduleGROUNDWHRefill()
     local currToWarehouse = warehousePair[2]
     local currGroup = GroundTank[math.random(2, table.getn(GroundTank))]
     local currNumber = math.random(1,5)
-    RequestResourceSelfProp(currFromWarehouse, currToWarehouse, currGroup, currNumber, SELFPROPELLED)
+    RequestResourceSelfProp(currFromWarehouse, currToWarehouse, currGroup, currNumber, WAREHOUSE.TransportType.AIRPLANE )
+end
+
+function ScheduleGROUNDToEast()
+    local warehousePair = FromToGroundPropelled[math.random(2, table.getn(FromToGroundPropelled))]
+    local currFromWarehouse = warehousePair[1]
+    local currToWarehouse = warehousePair[2]
+    local currGroup = GroundTank[math.random(2, table.getn(GroundTank))]
+    local currNumber = math.random(1,5)
+    RequestResourceSelfProp(currFromWarehouse, currToWarehouse, currGroup, currNumber, WAREHOUSE.TransportType.SELFPROPELLED)
 end
 
 RedCapScheduler = SCHEDULER:New(nil, ScheduleCAPRequest, {}, 10, 20*60, 1.0, 3600*24)
 HeliScheduler = SCHEDULER:New( nil, ScheduleWHrefill, {}, 60, 20*60, 1.0, 3600*24)
 GroundUnitScheduler = SCHEDULER:New( nil, ScheduleGROUNDWHRefill, {}, 30, 60*15, 1.0, 3600*24)
+GroundUnitToEastSched = SCHEDULER:New( nil, ScheduleGROUNDToEast, {}, 45, 30*60, 1.0, 3600*24)
