@@ -3,7 +3,7 @@ US_CC = COMMANDCENTER:New(GROUP:FindByName("BLUEHQ"),"Blue Command Center")
 RU_CC = COMMANDCENTER:New(GROUP:FindByName("REDHQ"), "Red Command Center")
 
 -- Funzione per creare una nuova zona di cattura
-function newCaptureZone(t, name)
+function NewCaptureZone(t, name)
     local captureZone = ZONE:New("AZ" .. name)
     local zoneCaptureCoalition = ZONE_CAPTURE_COALITION:New(captureZone, coalition.side.RED)
     zoneCaptureCoalition:__Guard(1) -- Imposta la zona nello stato di "Guarded"
@@ -15,33 +15,15 @@ end
 local captureZones = {}
 
 -- Creazione delle zone di cattura
-newCaptureZone(captureZones, "Paphos")
-newCaptureZone(captureZones, "Akrotiri")
-newCaptureZone(captureZones, "Pinarbashi")
-newCaptureZone(captureZones, "Lakatamia")
-newCaptureZone(captureZones, "Ercan")
-newCaptureZone(captureZones, "Larnaca")
-newCaptureZone(captureZones, "Kingsfield")
-newCaptureZone(captureZones, "Gecitkale")
-newCaptureZone(captureZones, "EastCypro")
-newCaptureZone(captureZones, "Testadiponte")
+NewCaptureZone(captureZones, "Paphos")
+NewCaptureZone(captureZones, "Akrotiri")
+NewCaptureZone(captureZones, "Pinarbashi")
+NewCaptureZone(captureZones, "Lakatamia")
+NewCaptureZone(captureZones, "Ercan")
+NewCaptureZone(captureZones, "Larnaca")
+NewCaptureZone(captureZones, "Kingsfield")
+NewCaptureZone(captureZones, "Gecitkale")
+NewCaptureZone(captureZones, "EastCypro")
+NewCaptureZone(captureZones, "Testadiponte")
 
--- Funzione per gestire gli eventi di transizione delle zone di cattura
 
--- function handleCaptureZoneEvent(self, From, Event, To)
---     local Coalition = self:GetCoalition()
---     self:E({ Coalition = Coalition })
-
---     -- Gestisci l'evento di cambio di stato
---     if From ~= To then
---         if Coalition == coalition.side.BLUE then
---             self:Smoke(SMOKECOLOR.Blue)
---             US_CC:MessageTypeToCoalition(string.format("%s is under protection of the USA", self:GetZoneName()), MESSAGE.Type.Information)
---             RU_CC:MessageTypeToCoalition(string.format("%s is under protection of the USA", self:GetZoneName()), MESSAGE.Type.Information)
---         else
---             self:Smoke(SMOKECOLOR.Red)
---             RU_CC:MessageTypeToCoalition(string.format("%s is under protection of Russia", self:GetZoneName()), MESSAGE.Type.Information)
---             US_CC:MessageTypeToCoalition(string.format("%s is under protection of Russia", self:GetZoneName()), MESSAGE.Type.Information)
---         end
---     end
--- end

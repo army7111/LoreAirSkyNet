@@ -1,6 +1,7 @@
 {
     "Lua.diagnostics.globals": [
-        "coalition"
+        "coalition",
+        "WAREHOUSE"
     ],
     "Lua.workspace.library": [
         "C:\\Users\\Army7\\Documents\\GitHub\\LoreAirSkyNet\\MooseScripts\\Moose.lua"
