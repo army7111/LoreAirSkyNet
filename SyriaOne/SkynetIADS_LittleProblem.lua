@@ -3,7 +3,7 @@ RedIADS = SkynetIADS:create('RED IADS')
 
 local commandCenter = StaticObject.getByName("Command Center")
 RedIADS:addCommandCenter(commandCenter)
---- Aggiunge tutte le unità che hanno come prefisso REDSAM - REDEW - REDCC
+--- Aggiunge tutte le unità che hanno come prefisso REDSAM - REDEW
 RedIADS:addSAMSitesByPrefix('REDSAM')
 RedIADS:addEarlyWarningRadarsByPrefix('REDEW')
 RedIADS:addRadioMenu()
