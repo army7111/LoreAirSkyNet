@@ -1,5 +1,5 @@
-US_CC = COMMANDCENTER:New(GROUP:FindByName("BLUEHQ"),"Blue Command Center")
-RU_CC = COMMANDCENTER:New(GROUP:FindByName("REDHQ"), "Red Command Center")
+US_HQ = COMMANDCENTER:New(GROUP:FindByName("BLUEHQ"),"Blue Command Center")
+RU_HQ = COMMANDCENTER:New(GROUP:FindByName("REDHQ"), "Red Command Center")
 
 
 -- Decl Warehouses
@@ -8,19 +8,19 @@ WarehousesCypro = {}
 WarehousesSHIP = {}
 
 local warehouseData = {
-    {table = WarehousesLAND, name = "Incirlik", staticName = "WHINCIRLIK", warehouseName = "Warehouse Incirlik"},
-    {table = WarehousesLAND, name = "Gazipasa", staticName = "WHGAZIPASA", warehouseName = "Warehouse Gazipasa", portZone = "GazipasaPORT"},
-    {table = WarehousesCypro, name = "Paphos", staticName = "WHPAPHOS", warehouseName = "Warehouse Paphos"},
-    {table = WarehousesCypro, name = "Akrotiri", staticName = "WHAKROTIRI", warehouseName = "Warehouse Akrotiri"},
-    {table = WarehousesCypro, name = "Pinarbashi", staticName = "WHPINARBASHI", warehouseName = "Warehouse Pinarbashi"},
-    {table = WarehousesCypro, name = "Lakatamia", staticName = "WHLAKATAMIA", warehouseName = "Warehouse Lakatamia"},
-    {table = WarehousesCypro, name = "Ercan", staticName = "WHERCAN", warehouseName = "Warehouse Ercan"},
-    {table = WarehousesCypro, name = "Larnaca", staticName = "WHLARNACA", warehouseName = "Warehouse Larnaca", portZone = "LarnacaPORT"},
-    {table = WarehousesCypro, name = "Kingsfield", staticName = "WHKINGSFIELD", warehouseName = "Warehouse Kingsfield"},
-    {table = WarehousesCypro, name = "Gecitkale", staticName = "WHGECITKALE", warehouseName = "Warehouse Gecitkale"},
-    {table = WarehousesCypro, name = "EastCypro", staticName = "WHEASTCYPRO", warehouseName = "Warehouse East Cypro", portZone = "CyproEastPORT"},
+    {table = WarehousesLAND, name = "Incirlik", staticName = "WHINCIRLIK", warehouseName = "Warehouse Incirlik", airport = "Incirlik"},
+    {table = WarehousesLAND, name = "Gazipasa", staticName = "WHGAZIPASA", warehouseName = "Warehouse Gazipasa", portZone = "GazipasaPORT", airport = "Gazipasa"},
+    {table = WarehousesLAND, name = "Bassel_Al_Assad", staticName = "WHBASSELALASSAD", warehouseName = "Warehouse Bassel Al-Assad", portZone = "PZBassel", airport = "Bassel Al-Assad"},
+    {table = WarehousesCypro, name = "Paphos", staticName = "WHPAPHOS", warehouseName = "Warehouse Paphos", airport = "Paphos"},
+    {table = WarehousesCypro, name = "Akrotiri", staticName = "WHAKROTIRI", warehouseName = "Warehouse Akrotiri", airport = "Akrotiri"},
+    {table = WarehousesCypro, name = "Pinarbashi", staticName = "WHPINARBASHI", warehouseName = "Warehouse Pinarbashi", airport = "Pinarbashi"},
+    {table = WarehousesCypro, name = "Lakatamia", staticName = "WHLAKATAMIA", warehouseName = "Warehouse Lakatamia", airport = "Lakatamia"},
+    {table = WarehousesCypro, name = "Ercan", staticName = "WHERCAN", warehouseName = "Warehouse Ercan", airport = "Ercan"},
+    {table = WarehousesCypro, name = "Larnaca", staticName = "WHLARNACA", warehouseName = "Warehouse Larnaca", portZone = "LarnacaPORT", airport = "Larnaca"},
+    {table = WarehousesCypro, name = "Kingsfield", staticName = "WHKINGSFIELD", warehouseName = "Warehouse Kingsfield", airport = "Kingsfield"},
+    {table = WarehousesCypro, name = "Gecitkale", staticName = "WHGECITKALE", warehouseName = "Warehouse Gecitkale", airport = "Gecitkale"},
+    {table = WarehousesCypro, name = "EastCypro", staticName = "WHEASTCYPRO", warehouseName = "Warehouse East Cypro", portZone = "CyproEastPORT", airport = "FARPCyproEast"},
     {table = WarehousesCypro, name = "Testadiponte", staticName = "WHTestadiPonte", warehouseName = "Warehouse Testa di Ponte Cipro"},
-    {table = WarehousesLAND, name = "Bassel_Al_Assad", staticName = "WHBASSELALASSAD", warehouseName = "Warehouse Bassel Al-Assad", portZone = "PZBassel"},
     {table = WarehousesSHIP, name = "Tarawa", staticName = "WHTarawa", warehouseName = "Warehouse Tarawa"}
 }
 
@@ -31,21 +31,16 @@ for _, data in ipairs(warehouseData) do
         local portZone = ZONE_POLYGON:FindByName(data.portZone)
         warehouse:SetPortZone(portZone)
     end
-    
+    if data.airport then
+        local airport = AIRBASE:FindByName(data.airport)
+        warehouse:SetAirbase(airport)
+end
     warehouse:Start()
     data.table[data.name] = warehouse
 end
 
 -- Inizializzazione Warehouse con unità
--- WarehousesCypro.Lakatamia:AddAsset("TEMPL-Mi24", 20)
--- WarehousesCypro.Lakatamia:AddAsset("Ka503", 20)
--- WarehousesCypro.Paphos:AddAsset("TEMPL-RedTank", 20)
--- WarehousesCypro.Paphos:AddAsset("TEMPL-SA15", 10)
--- WarehousesCypro.Paphos:AddAsset("TEMPL-RedTruck", 50)
--- WarehousesCypro.Ercan:AddAsset("TEMPL-RedInf", 100)
--- WarehousesCypro.Paphos:AddAsset("TEMPL-AirTransportRED", 10, WAREHOUSE.Attribute.AIRTRANSPORT, 90000 )
--- WarehousesCypro.Ercan:AddAsset("REDAICAP", 25)
--- WarehousesCypro.Ercan:AddAsset("BAITEMPL-Su25", 10)
+
 WarehousesLAND.Incirlik:AddAsset("REDAICAP", 10)
 WarehousesLAND.Incirlik:AddAsset("TEMPL-AirTransportRED", 10, WAREHOUSE.Attribute.AIRTRANSPORT, 90000 )
 WarehousesLAND.Incirlik:AddAsset("TEMPL-RedTank", 50)
@@ -55,25 +50,13 @@ WarehousesLAND.Incirlik:AddAsset("TEMPL-SA15", 10)
 WarehousesLAND.Incirlik:AddAsset("TEMPL-RedAAA", 10)
 WarehousesLAND.Incirlik:AddAsset("TEMPL-BAISu25", 50)
 
--- Dichiarazione Unita e tipo di unita
--- TransportRED = GROUP:FindByName("TEMPL-AirTransportRED")
--- Inf = GROUP:FindByName("TEMPL-RedInf")
--- Aaa = GROUP:FindByName("TEMPL-RedAAA")
--- Truck = GROUP:FindByName("TEMPL-RedTruck")
--- SAMTor = GROUP:FindByName("TEMPL-SA15")
--- TankRed = GROUP:FindByName("TEMPL-RedTank")
--- Ka503 = GROUP:FindByName("Ka503")
--- AV8BShip = GROUP:FindByName("AV8B")
--- Fine Dichiarazione Unita e tipo
-
 -- Funzione per la richiesta semplice di unità: ex. 
 function RequestResource(fromWarehouse, toWarehouse, groupName, number, transportType)
     -- Controlla se le coalizioni dei magazzini sono uguali
     if fromWarehouse:GetCoalition() ~= toWarehouse:GetCoalition() then
-        print("Request denied: Warehouses belong to different coalitions.")
+        print("Richiesta negata: Le coalizioni dei magazzini non sono uguali")
         return
     end
-
     if transportType == nil then
         fromWarehouse:AddRequest(toWarehouse, WAREHOUSE.Descriptor.GROUPNAME, groupName, number)
     else
@@ -81,6 +64,12 @@ function RequestResource(fromWarehouse, toWarehouse, groupName, number, transpor
     end
 end
 
+function InitialRequest(fromWarehouse, toWarehouse, groupName, number, transportType)
+    RequestResource(WarehousesLAND.Incirlik, WarehousesCypro.Larnaca, "TEMPL-RedTank", 5, WAREHOUSE.TransportType.AIRPLANE)
+    MESSAGE:New((string.format("Richiesta da %s per %s di %s unità del tipo %s",fromWarehouse,toWarehouse,number,groupName)),5,10,"System"):ToAll()
+end
+
+SchedulazioneIniziale = SCHEDULER:New( nil, InitialRequest, {}, 10, 300, 0, 3600 )
 
 --Coppie fromToWarehouse per funzione random di convogli
 
