@@ -52,6 +52,8 @@ WarehousesLAND.Incirlik:AddAsset("TEMPL-BAISu25", 50)
 
 -- Funzione per la richiesta semplice di unità: ex. 
 function RequestResource(fromWarehouse, toWarehouse, groupName, number, transportType)
+    -- DEBUG - Invia messaggio con dati richiesta
+    MESSAGE:New("Richiesta da " .. fromWarehouse:GetAirbaseName() .. " per " .. toWarehouse:GetAirbaseName() .. " di " .. number .. " " .. groupName, 60):ToAll()
     -- Controlla se le coalizioni dei magazzini sono uguali
     if fromWarehouse:GetCoalition() ~= toWarehouse:GetCoalition() then
         print("Richiesta negata: Le coalizioni dei magazzini non sono uguali")
@@ -64,12 +66,14 @@ function RequestResource(fromWarehouse, toWarehouse, groupName, number, transpor
     end
 end
 
-function InitialRequest(fromWarehouse, toWarehouse, groupName, number, transportType)
+function InitialRequest()
     RequestResource(WarehousesLAND.Incirlik, WarehousesCypro.Larnaca, "TEMPL-RedTank", 5, WAREHOUSE.TransportType.AIRPLANE)
-    MESSAGE:New((string.format("Richiesta da %s per %s di %s unità del tipo %s",fromWarehouse,toWarehouse,number,groupName)),5,10,"System"):ToAll()
 end
 
 SchedulazioneIniziale = SCHEDULER:New( nil, InitialRequest, {}, 10, 300, 0, 3600 )
+
+-- Funzione per la richiesta di unità per distribuzione automatica: ex.
+
 
 --Coppie fromToWarehouse per funzione random di convogli
 

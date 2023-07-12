@@ -1,7 +1,15 @@
 {
     "Lua.diagnostics.globals": [
         "coalition",
-        "WAREHOUSE"
+        "WAREHOUSE",
+        "MESSAGE",
+        "CSAR",
+        "ZONE",
+        "COMMANDCENTER",
+        "ZONE_CAPTURE_COALITION",
+        "GROUP",
+        "SCHEDULER",
+        "ZONE_POLYGON"
     ],
     "Lua.workspace.library": [
         "C:\\Users\\Army7\\Documents\\GitHub\\LoreAirSkyNet\\MooseScripts\\Moose.lua"

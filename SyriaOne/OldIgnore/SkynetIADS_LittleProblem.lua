@@ -98,6 +98,7 @@ local refillScheduler = SCHEDULER:New(nil, refillSquadrons, {}, 0, 3600*12) -- 7
 
 RedIADS:addMooseSetGroup(DetectionSetGroup)
 
+
 --- Debug ---
 
 local iadsDebug = RedIADS:getDebugSettings()

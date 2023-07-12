@@ -34,7 +34,7 @@ NewCaptureZone(captureZones, "Testadiponte")
 -- La warehouse non ha disponibili i mezzi , deve chiederli a Larnaca. Se Larnaca non ha unità di quel tipo disponibili , dovra fare una richiesta a Incirlik. Se Incirlik non ha unità
 -- o non è disponibile, allora la richiesta sarà negata. 
 
-function ZoneCaptureCoalition:OnEnterGuarded(From, Event, To)
+function ZoneCaptureCoalition:OnEnterGuarded(From, Event, To, self)
     if From ~= To then
         local Coalition = self:GetCoalition()
         self:E({ Coalition = Coalition })
