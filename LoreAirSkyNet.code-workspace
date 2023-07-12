@@ -13,6 +13,21 @@
 	"settings": {
 		"lua.targetVersion": "5.3",
 		"Lua.workspace.preloadFileSize": 10000,
-		"Lua.workspace.maxPreload": 500
+		"Lua.workspace.maxPreload": 500,
+		"Lua.completion.displayContext": 2,
+		"Lua.hover.enumsLimit": 10,
+		"Lua.runtime.path": [
+			"?.lua",
+			"?/init.lua",
+			"?/Moose.lua"
+		],
+		"Lua.workspace.ignoreDir": [
+			".vscode",
+			"OldIgnore",
+			"SkynetLUA"
+		],
+		"Lua.workspace.userThirdParty": [
+			"Moose.lua"
+		]
 	}
 }

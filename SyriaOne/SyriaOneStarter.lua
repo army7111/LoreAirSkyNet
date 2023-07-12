@@ -145,6 +145,52 @@ NewCaptureZone(captureZones, "Testadiponte")
 -- La warehouse non ha disponibili i mezzi , deve chiederli a Larnaca. Se Larnaca non ha unità di quel tipo disponibili , dovra fare una richiesta a Incirlik. Se Incirlik non ha unità
 -- o non è disponibile, allora la richiesta sarà negata. 
 
+function ZoneCaptureCoalition:OnEnterAttacked(From, Event, To, self)
+    if From ~= To then
+        local Coalition = self:GetCoalition()
+        self:E({ Coalition = Coalition })
+        if Coalition == coalition.side.BLUE then
+            self:Smoke(SMOKECOLOR.Blue)
+            US_CC:MessageTypeToCoalition(string.format("%s is under attack by the RED", self:GetZoneName()), MESSAGE.Type.Information)
+            RU_CC:MessageTypeToCoalition(string.format("%s is under attack by the BLUE", self:GetZoneName()), MESSAGE.Type.Information)
+        else
+            self:Smoke(SMOKECOLOR.Red)
+            RU_CC:MessageTypeToCoalition(string.format("%s is under attack by BLUE", self:GetZoneName()), MESSAGE.Type.Information)
+            US_CC:MessageTypeToCoalition(string.format("%s is under attack by RED", self:GetZoneName()), MESSAGE.Type.Information)
+        end
+        self:__Guard(0)
+        self:__Capture(0)
+        self:__Defend(1)
+        self:__Recapture(1)
+        self:__Attack(0)
+        self:__Patrol(0)
+        self:__PatrolGround(0)
+        self:__PatrolAir(0)
+        self:__PatrolShip(0)
+        self:__PatrolSubmarine(0)
+        self:__PatrolHelicopter(0)
+        self:__PatrolVehicle(0)
+        self:__PatrolInfantry(0)
+        self:__PatrolStatic(0)
+        self:__PatrolGroup(0)
+        self:__PatrolZone(0)
+        self:__PatrolRoute(0)
+        self:__PatrolTask(0)
+        self:__PatrolTaskRoute(0)
+        self:__PatrolTaskZone(0)
+        self:__PatrolTaskGroup(0)
+        self:__PatrolTaskUnit(0)
+        self:__PatrolTaskObject(0)
+        self:__PatrolTaskShip(0)
+        self:__PatrolTaskSubmarine(0)
+        self:__PatrolTaskHelicopter(0)
+        self:__PatrolTaskVehicle(0)
+        self:__PatrolTaskInfantry(0)
+        self:__PatrolTaskStatic(0)
+        self:__PatrolTaskPatrol(0)
+    end
+end
+
 function ZoneCaptureCoalition:OnEnterGuarded(From, Event, To, self)
     if From ~= To then
         local Coalition = self:GetCoalition()
